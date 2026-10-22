@@ -2,6 +2,10 @@ import mongoose from 'mongoose'
 
 const MONGO_URI=process.env.MONGO_URI
 
+
+console.log("URI value:", JSON.stringify(MONGO_URI));
+console.log("URI type:", typeof MONGO_URI);
+
 if(!MONGO_URI){
     throw new Error("no connection string found")
 }
@@ -33,7 +37,7 @@ export async function connectDB(){
             bufferCommands:false
         }
 
-        cached.promise=mongoose.connect(MONGO_URI as string,opts);
+        cached.promise=mongoose.connect(process.env.MONGO_URI!,opts);
     }
 
     cached.conn=await cached.promise
