@@ -8,6 +8,7 @@ export interface IUser{
     name:string,
     email:string
     location?:string
+    contact:number
 }
 
 export interface IProduct{
@@ -25,5 +26,14 @@ export interface IProduct{
   | "Sports"
   | "Gaming";
   photos:string[]
+  year:number
 
+}
+
+export type producttype={
+  name:string,
+  description:string,
+  price:number,
+  year:number,
+  category:string
 }

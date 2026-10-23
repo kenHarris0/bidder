@@ -32,6 +32,9 @@ const productSchema=new mongoose.Schema({
       "Books",
       "Sports",
       "Gaming",]
+    },
+    year:{
+        type:Number
     }
 
 

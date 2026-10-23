@@ -6,11 +6,14 @@ import {useClerk,UserButton} from "@clerk/nextjs"
 import { Button } from "./ui/button";
 import { useContext } from "react";
 import { bidderContext } from "@/context/Context";
-import { User } from "lucide-react";
+import { Search, User } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Input } from "./ui/input";
-
-
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+} from "@/components/ui/input-group"
 
 export const Navbar = () => {
 
@@ -31,7 +34,12 @@ export const Navbar = () => {
       </div>
 
       <div className="w-150 flex items-center ">
-        <Input type="text" id="searchval" placeholder="search autions"/>
+        <InputGroup className="max-w-xl">
+        <InputGroupInput placeholder="search...."/>
+        <InputGroupAddon>
+        <Search/>
+        </InputGroupAddon>
+        </InputGroup>
       </div>
 
 
@@ -40,7 +48,7 @@ export const Navbar = () => {
 
       <p className="text-sm font-medium hover:underline hover:cursor-pointer">About</p>
       <p className="text-sm font-medium hover:underline hover:cursor-pointer">Auctions</p>
-      <p className="text-sm  font-medium hover:underline hover:cursor-pointer">List Items</p>
+      <p className="text-sm  font-medium hover:underline hover:cursor-pointer" onClick={()=>router.push('/items/listitems')}>List Items</p>
 
       </div>
 

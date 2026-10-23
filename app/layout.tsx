@@ -5,6 +5,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { cn } from "@/lib/utils";
 import { Navbar } from "@/components/navbar";
 import Context from "@/context/Context";
+import { ToastContainer } from "react-toastify";
 
 const inter = Inter({subsets:['latin'],variable:'--font-sans'});
 
@@ -33,10 +34,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       
     
       <body className="min-h-full flex flex-col ">
+        
         <Context>
       <Navbar/>
       <div className="w-[80%] m-auto">
           {children}
+          <ToastContainer position="top-right"/>
 
       </div>
       
