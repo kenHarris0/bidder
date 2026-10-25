@@ -26,7 +26,8 @@ export interface IProduct{
   | "Sports"
   | "Gaming";
   photos:string[]
-  year:number
+  year:number,
+  createdAt:Date
 
 }
 

@@ -6,7 +6,7 @@ import {useClerk,UserButton} from "@clerk/nextjs"
 import { Button } from "./ui/button";
 import { useContext } from "react";
 import { bidderContext } from "@/context/Context";
-import { Search, User } from "lucide-react";
+import { Search, CircleDollarSign , User2Icon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Input } from "./ui/input";
 import {
@@ -30,7 +30,7 @@ export const Navbar = () => {
     <div className="w-full h-13 border-b-white-500 p-1 flex justify-between border">
 
       <div className="w-1/4  items-center flex p-3">
-        <h1 className="text-4xl font-extrabold">BIDDER</h1>
+        <h1 className="text-4xl font-extrabold cursor-pointer" onClick={()=>router.push('/')}>BIDDER</h1>
       </div>
 
       <div className="w-150 flex items-center ">
@@ -59,7 +59,8 @@ export const Navbar = () => {
       :
       <UserButton>
         <UserButton.MenuItems>
-          <UserButton.Action label="your bids" labelIcon={<User/>} onClick={()=>router.push('/')}/>
+          <UserButton.Action label="your bids" labelIcon={<CircleDollarSign className="w-4 h-4"/>} onClick={()=>router.push('/')}/>
+          <UserButton.Action label="Profile" labelIcon={<User2Icon className="w-4 h-4"/>} onClick={()=>router.push('/profile')}/>
         </UserButton.MenuItems>
       </UserButton> 
       
