@@ -46,7 +46,7 @@ export const Navbar = () => {
 
       <div className="w-1/4  flex justify-between gap-15 items-center p-2 ml-90 ">
 
-      <p className="text-sm font-medium hover:underline hover:cursor-pointer">About</p>
+      <p className="text-sm font-medium hover:underline hover:cursor-pointer" onClick={()=>router.push('/inbox')}>Inbox</p>
       <p className="text-sm font-medium hover:underline hover:cursor-pointer">Auctions</p>
       <p className="text-sm  font-medium hover:underline hover:cursor-pointer" onClick={()=>router.push('/items/listitems')}>List Items</p>
 

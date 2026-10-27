@@ -1,6 +1,6 @@
 'use client'
 
-import { IUser } from "@/models/type"
+import { IProduct, IUser } from "@/models/type"
 import { useUser } from "@clerk/nextjs"
 import axios from "axios"
 import { createContext, useEffect, useState } from "react"
@@ -13,9 +13,17 @@ import { createContext, useEffect, useState } from "react"
 interface ContextType{
   userdata:IUser | null
   user:ReturnType<typeof useUser>["user"]
+  chatdetails:Chattype
+  setchatdetails:React.Dispatch<React.SetStateAction<Chattype>>
 
 
 }
+
+export type Chattype={
+  sender:IUser,
+  receiver:IUser,
+  product:IProduct
+} |null
 
 export const bidderContext=createContext<ContextType | null>(null)
 
@@ -25,6 +33,9 @@ const Context = ({children}:{children:React.ReactNode}) => {
   const {user,isLoaded,isSignedIn}=useUser();
 
   const [userdata,setuserdata]=useState<IUser | null>(null)
+
+
+  const [chatdetails,setchatdetails]=useState<Chattype>(null)
 
 
   useEffect(()=>{
@@ -48,11 +59,12 @@ const Context = ({children}:{children:React.ReactNode}) => {
 
 
     
+console.log(chatdetails)
 
 
     let data:ContextType={
       userdata,
-      user
+      user,chatdetails,setchatdetails
 
     }
 

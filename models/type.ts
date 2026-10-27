@@ -38,3 +38,12 @@ export type producttype={
   year:number,
   category:string
 }
+
+
+export interface IMessage{
+  senderId:mongoose.Types.ObjectId
+  receiverId:mongoose.Types.ObjectId
+  productId:mongoose.Types.ObjectId
+  text:string
+  image:string
+}
