@@ -57,7 +57,7 @@ export async function ListProduct(productdata:producttype,photos:string[]){
             ownerId:currUser?._id
         })
 
-
+console.log("Saved product:", newProduct.toObject());
 
         return {
             success:true,

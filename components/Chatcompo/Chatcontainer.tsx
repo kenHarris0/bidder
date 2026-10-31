@@ -2,14 +2,24 @@
 
 import { IMessage } from "@/models/type"
 
-const Chatcontainer = ({messages}:{messages:IMessage[]}) => {
+import {Bubble, BubbleContent} from '@/components/ui/bubble'
+
+const Chatcontainer = ({messages,sender}:{messages:IMessage[],sender:string}) => {
+
+
+
   return (
-    <div className="w-full h-full flex flex-col">
+    <div className="w-full h-full flex flex-col gap-5 overflow-auto">
         {messages.map((msg:IMessage,ind:number)=>{
+          const msgsender=msg.senderId.toString();
+          const isSender=msgsender===sender
 
 
 return(
-    <p>{msg.text}</p>
+  <Bubble align={`${isSender?"end":"start"}`} variant="secondary">
+    <BubbleContent >{msg.text}</BubbleContent>
+  </Bubble>
+   
 )
         })}
       

@@ -37,7 +37,7 @@ const OwnerSidebar = ({data,receiver}:{data:Productbuyertype[],receiver:IUser}) 
                 {item?.buyerss.map((buyer)=>{
                   return(
                     <p className="inline-block w-full h-8 bg-gray-300 p-1 text-sm rounded cursor-pointer hover:scale-[1.04] transition-all 0.3s"
-                    onClick={()=>setchatdetails(prev=>({...prev,sender:buyer,receiver:receiver,product:item?.product}))}
+                    onClick={()=>setchatdetails(prev=>({...prev,receiver:buyer,sender:receiver,product:item?.product}))}
                     ><User className="inline w-5 h-5 pr-1"/>{buyer?.name}</p>
                   )
                 })}

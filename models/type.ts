@@ -3,7 +3,7 @@ import mongoose from "mongoose"
 
 
 export interface IUser{
-    _id?:string,
+    _id:string,
     clerkId:string,
     name:string,
     email:string
@@ -28,6 +28,7 @@ export interface IProduct{
   photos:string[]
   year:number,
   createdAt:Date
+  isUpforauction?:boolean
 
 }
 
@@ -37,6 +38,7 @@ export type producttype={
   price:number,
   year:number,
   category:string
+  isUpforauction:boolean
 }
 
 
@@ -46,4 +48,13 @@ export interface IMessage{
   productId:mongoose.Types.ObjectId
   text:string
   image:string
+}
+
+export interface IAuction{
+  _id?:string
+  ownerId:mongoose.Types.ObjectId
+  productId:mongoose.Types.ObjectId
+  startBid:number
+  startTime:Date
+
 }

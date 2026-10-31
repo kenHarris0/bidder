@@ -1,5 +1,6 @@
 'use client'
 
+import { socket } from "@/lib/socket"
 import { IProduct, IUser } from "@/models/type"
 import { useUser } from "@clerk/nextjs"
 import axios from "axios"
@@ -56,6 +57,26 @@ const Context = ({children}:{children:React.ReactNode}) => {
 
 
   },[isLoaded,isSignedIn])
+
+
+  useEffect(()=>{
+if(!userdata?._id) return;
+
+
+const connectSocket=async()=>{
+  socket.emit("register-user",userdata?._id)
+}
+
+socket.on("connect",connectSocket);
+
+socket.connect();
+
+
+return ()=>{
+  socket.off("connect", connectSocket);
+  socket.disconnect()
+}
+  },[userdata?._id])
 
 
     

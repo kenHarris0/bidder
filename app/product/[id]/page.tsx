@@ -1,10 +1,20 @@
+import Auctionbox from "@/components/auctions/Auctionbox";
+import Auctionform from "@/components/auctions/Auctionform";
+import Auctiontop from "@/components/auctions/Auctiontop";
 import Photoviewer from "@/components/Photoviewer";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTrigger,DialogTitle,DialogDescription } from "@/components/ui/dialog";
+import { FieldGroup,Field } from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import Auction from "@/models/auction.model";
 import Product from "@/models/product.model";
+import { IAuction } from "@/models/type";
 import User from "@/models/user.model";
 import { auth } from "@clerk/nextjs/server";
 import { LocationEdit, MessageCircle, PhoneCall, User2Icon } from "lucide-react";
 import Link from "next/link";
+
 
 export default async function ProductPage({params}:{params:Promise<{id:string}>}){
 
@@ -26,9 +36,12 @@ export default async function ProductPage({params}:{params:Promise<{id:string}>}
         throw new Error("no product owner found")
     }
 
-    const isOwner=currUser._id.toString()===ownerInfo._id.toString()
+    const isOwner=currUser._id.toString()===ownerInfo._id.toString();
 
+    //fetch auction 
 
+    const auctionData=await Auction.findOne({productId:currProduct._id,ownerId:ownerInfo._id})
+console.log(auctionData)
 
 
 
@@ -42,7 +55,13 @@ export default async function ProductPage({params}:{params:Promise<{id:string}>}
 
      {/* first block */}
 
-     <div className="w-full h-60  mt-10 flex justify-between p-5">
+     <div
+  className={`w-full h-80 mt-10 flex p-5 border ${
+    currProduct.isUpforauction
+      ? "justify-start"
+      : "justify-between"
+  }`}
+>
 
        
 <div className=" min-w-0 w-160 h-50 border rounded-2xl p-6 flex flex-col justify-center gap-4 bg-white shadow-sm">
@@ -72,23 +91,36 @@ export default async function ProductPage({params}:{params:Promise<{id:string}>}
 </div>
 
 
-        <div className="w-120 h-50 border p-5 flex flex-col gap-5"> 
+       {!currProduct?.isUpforauction  && <div className="w-120 h-70 border p-5 flex flex-col gap-5"> 
 
             <h1 className="text-6xl font-semibold pb-2">${ currProduct?.price}</h1>
 
-            <Button className="bg-blue-500 border-4 border-blue-200 text-xl w-full h-16 p-2 cursor-pointer hover:text-blue-700" >MAKE OFFER</Button>
+            <Button className="bg-blue-500 border-4 border-blue-200 text-xl w-full h-16 p-2 cursor-pointer hover:text-blue-700" >
+              MAKE OFFER</Button>
+              
 
 
 
         </div>
+       }
+       {currProduct?.isUpforauction &&
+
+       <Auctiontop ownerInfo={JSON.parse(JSON.stringify(ownerInfo))} currProduct={JSON.parse(JSON.stringify(currProduct))} auctionData={JSON.parse(JSON.stringify(auctionData))} isOwner={isOwner}/>
+       }
 
      </div>
 
 {/* second block */}
 
-<div className="w-full h-fit flex  justify-between p-6">
+<div
+  className={`w-full h-fit flex p-6 border ${
+    currProduct.isUpforauction
+      ? "justify-start"
+      : "justify-between"
+  }`}
+>
 {/* left block */}
-  <div className="w-200 min-h-170  p flex flex-col gap-6">
+  <div className="w-200 min-h-170  p flex flex-col gap-6 ">
     <div className="w-160 h-50 border rounded-2xl flex flex-col items-start p-5 gap-5">
 
       <h1 className="text-3xl tracking-tight font-bold text-gray-900 pl-5">OVERVIEW</h1>
@@ -154,6 +186,7 @@ export default async function ProductPage({params}:{params:Promise<{id:string}>}
 
 
 {/* right block */}
+{!currProduct?.isUpforauction  &&
   <div className="w-120 h-50 border flex flex-col items-center justify-center gap-5">
 
 
@@ -180,6 +213,14 @@ export default async function ProductPage({params}:{params:Promise<{id:string}>}
 
 
   </div>
+  }
+
+  {currProduct?.isUpforauction && 
+  <div className="w-1/2 h-200 ">
+    <Auctionbox auctionData={auctionData}/>
+    
+    
+  </div>}
 
 </div>
      

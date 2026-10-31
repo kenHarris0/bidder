@@ -5,8 +5,7 @@ import Category from "@/components/Category";
 import { connectDB } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
 import Product from "@/models/product.model";
-import ProductCard from "@/components/ProductCard";
-
+import DsiplayHomeitems from "@/components/DsiplayHomeitems";
 
 
 
@@ -68,7 +67,7 @@ const categories: { name: Category; image: string }[] = [
 
 
   return(
-    <div className="w-full min-h-screen border flex flex-col">
+    <div className="w-full min-h-screen  flex flex-col">
       {/* HERO SECTION */}
 
       <Hero/>
@@ -87,17 +86,10 @@ const categories: { name: Category; image: string }[] = [
 
       </div>
 
+      <div className="w-full h-fit  ">
+        <DsiplayHomeitems allproducts={allProducts}/>
 
 
-      {/* display all the products */}
-      <div className="w-full p-10 h-fit grid grid-cols-4 gap-7">
-
-      {allProducts.map((product)=>{
-
-        return <ProductCard data={JSON.parse(JSON.stringify(product))} />
-
-
-      })}
       </div>
 
 

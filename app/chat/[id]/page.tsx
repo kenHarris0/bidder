@@ -41,7 +41,7 @@ if(!currProduct){
     }
 
     //get all messages buddy here
-    const messages:IMessage[]=await Message.find({productId:currProduct._id,$or:[{senderId:sender._id,receiverId:receiver._id},{senderId:receiver._id,receiverId:sender._id}]}).sort({createdAt:1})
+    const messages:IMessage[]=await Message.find({productId:currProduct._id,$or:[{senderId:sender._id,receiverId:receiver._id},{senderId:receiver._id,receiverId:sender._id}]}).sort({createdAt:1}).lean()
 
 
 

@@ -6,13 +6,15 @@ import User from "@/models/user.model"
 import Product from "@/models/product.model"
 import Message from "@/models/message"
 
+import { getIO,getSocketmap } from "../socket-server"
+
 
 
 export async function sendMessage(senderId:string,receiverId:string,productId:string,text:string){
 
 
     try{
-
+const io=getIO()
         await connectDB()
 
          const {userId}=await auth()
@@ -51,6 +53,19 @@ export async function sendMessage(senderId:string,receiverId:string,productId:st
             productId,
             text
         })
+
+        const socketmap=getSocketmap();
+        if(!socketmap){
+            console.log("map is empty")
+        }
+
+        const receiverSockets=socketmap.get(receiverId)
+
+        receiverSockets?.forEach(soc=>{
+            io.to(soc).emit("new-msg",newMessage)
+        })
+
+
 
         return{
             success:true,

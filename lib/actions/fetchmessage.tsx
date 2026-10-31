@@ -38,7 +38,7 @@ export async function fetchMessages(senderId:string,receiverId:string,productId:
             }
         }
 
-        const messages=await Message.find({senderId,receiverId,productId})
+        const messages=await Message.find({productId,$or:[{senderId,receiverId},{senderId:receiverId,receiverId:senderId}]})
 
 
         return {

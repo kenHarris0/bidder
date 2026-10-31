@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 
 
 
-const ProductCard = ({data}:{data:IProduct}) => {
+const ProductCard = ({data,isAnauctionItem}:{data:IProduct,isAnauctionItem:boolean}) => {
 
   const router=useRouter()
 
@@ -37,7 +37,7 @@ const ProductCard = ({data}:{data:IProduct}) => {
 
     
   return (
-    <div className="flex flex-col w-80 h-100 border overflow-hidden rounded-2xl shadow-md hover:shadow-xl cursor-pointer hover:scale-[1.02] transition-all 0.3s"
+    <div className="flex flex-col w-80 h-110 border overflow-hidden rounded-2xl shadow-md hover:shadow-xl cursor-pointer hover:scale-[1.02] transition-all 0.3s"
     onClick={()=>router.push(`/product/${data._id}`)}>
 
         <div className="w-full h-[70%] relative ">
@@ -45,17 +45,22 @@ const ProductCard = ({data}:{data:IProduct}) => {
         </div>
 
         <div className="w-full  h-[30%] flex">
-            <div className="w-2 h-full bg-orange-500">
+            <div className={`w-2 h-full ${isAnauctionItem?"bg-blue-950":"bg-amber-700"}`}>
 
             </div>
             <div className="w-full p-3 flex flex-col h-[30%] gap-1">
                 <div className="flex justify-between items-center ">
     <h1 className="text-2xl">${data?.price}</h1>
-    <div className="flex items-center justify-center gap-1">
+    {!isAnauctionItem ? (<div className="flex items-center justify-center gap-1">
         <Calendar1 className="w-3 h-3"/>
         <span className="text-xs">{isPostedToday ? "Today" : formattedDate}</span>
 
+    </div>):(
+      <div className="flex items-center justify-center gap-1">
+        <p className="text-xs text-blue-950">Up for Auction</p>
+
     </div>
+    )}
             
 
 </div>
@@ -66,6 +71,9 @@ const ProductCard = ({data}:{data:IProduct}) => {
 
 
             </div>
+            
+
+            
 
 
         </div>

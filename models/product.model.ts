@@ -35,6 +35,10 @@ const productSchema=new mongoose.Schema({
     },
     year:{
         type:Number
+    },
+    isUpforauction:{
+        type:Boolean,
+        default:false
     }
 
 

@@ -40,6 +40,7 @@ const [productdata,setproductdata]=useState<producttype>({
   price:0,
   year:0,
   category:"",
+  isUpforauction:false,
   
 
 });
@@ -101,6 +102,7 @@ const submitProduct=async(e:React.FormEvent<HTMLFormElement>)=>{
   price:0,
   year:0,
   category:"",
+  isUpforauction:false
       })
       setphotos([])
     }
@@ -136,6 +138,20 @@ const photocount=photos?.length || 0;
                 <Label>Description</Label>
                 <Textarea rows={10}  placeholder="write..." id="description" value={productdata?.description} onChange={(e)=>setproductdata(prev=>({...prev,description:e.target.value}))}/>
              </Field>
+
+             <Field>
+              <Select value={productdata?.isUpforauction?"auction":"fixed"} onValueChange={(value)=>setproductdata(prev=>({...prev,isUpforauction:value==="auction"}))}>
+                <SelectTrigger>
+                  <SelectValue placeholder="select pricing type"/>
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="fixed">fixed pricing</SelectItem>
+                   <SelectItem value="auction">up for auction</SelectItem>
+                </SelectContent>
+              </Select>
+             </Field>
+
+             
 
              <Field>
                 <Label>Price</Label>
